@@ -7,6 +7,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <img src={igniteLogo} alt="logotipo do Ignite" />
+      <h2>React Feed</h2>
     </header>
   );
 }

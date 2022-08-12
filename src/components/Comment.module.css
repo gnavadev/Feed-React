@@ -70,6 +70,8 @@ line-height: 1.6;
     cursor: pointer;    
     display: flex;  
     align-items: center;
+    padding: 5px;
+    border-radius: 2px;
 
 }
 

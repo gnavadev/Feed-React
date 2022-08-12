@@ -21,15 +21,7 @@
     /* 0px para que o valor fique negativo*/
 }
 
-.avatar {
-    box-sizing: initial; 
-    /* faz com que borda e outline ocupe um lugar a mais, ao inves de expremer a imagem */
-    width: 3rem;
-    height: 3rem;
-    border-radius: 8px;   
-    border: 4px solid var(--gray-800);
-    outline: 2px solid var(--green-500);
-}
+
 
 .profile strong{
     margin-top: 1rem;

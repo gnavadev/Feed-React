@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./Comment.module.css";
 import boltProfile from "../assets/boltprofile.jpg";
 import { ThumbsUp, Trash } from "phosphor-react";
+import { Avatar } from "./Avatar";
 
 export function Comment() {
   const [like, setLike] = useState(0);
   return (
     <>
       <div className={styles.comment}>
-        <img src={boltProfile} alt="Avatar de quem comentou" />
+        <Avatar hasBorder = {false} src={boltProfile}/>
 
         <div className={styles.commentBox}>
           <div className={styles.commentContent}>

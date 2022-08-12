@@ -2,6 +2,7 @@ import styles from "./Sidebar.module.css";
 import bolt from "../assets/bolt.jpg";
 import boltProfile from "../assets/boltprofile.jpg";
 import { PencilLine } from "phosphor-react";
+import { Avatar } from "./Avatar";
 
 export function Sidebar() {
   return (
@@ -10,11 +11,7 @@ export function Sidebar() {
         <img className={styles.cover} src={bolt} alt="Foto de capa" />
 
         <div className={styles.profile}>
-          <img
-            className={styles.avatar}
-            src={boltProfile}
-            alt="Foto de perfil"
-          />
+          <Avatar src={boltProfile}/>
 
           <strong>Bolt Nava</strong>
           <span>Web Developer</span>
