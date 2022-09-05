@@ -4,12 +4,12 @@ import boltProfile from "../assets/boltprofile.jpg";
 import { ThumbsUp, Trash } from "phosphor-react";
 import { Avatar } from "./Avatar";
 
-export function Comment() {
+export function Comment({ content, ...props }) {
   const [like, setLike] = useState(0);
   return (
     <>
       <div className={styles.comment}>
-        <Avatar hasBorder = {false} src={boltProfile}/>
+        <Avatar hasBorder={false} src={boltProfile} />
 
         <div className={styles.commentBox}>
           <div className={styles.commentContent}>
@@ -27,7 +27,7 @@ export function Comment() {
                 <Trash size={25} />
               </button>
             </header>
-            <p>Muito bom Bolt!</p>
+            <p>{content}</p>
           </div>
           <footer>
             <button onClick={() => setLike(like + 1)}>

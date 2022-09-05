@@ -1,50 +1,87 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/esm/locale/pt-BR";
 import styles from "./Post.module.css";
-import boltProfile from "../assets/boltprofile.jpg";
 import { Comment } from "./Comment";
 import { Avatar } from "./Avatar";
+import { useState } from "react";
 
-export function Post() {
+export function Post({ author, publishedAt, content, ...props }) {
+  const [comments, setComments] = useState(["Bacana em ! Very Bacana"]);
+  const [newCommentText, setNewCommentText] = useState("");
+
+  const publishedDateFormatted = format(
+    publishedAt,
+    "dd 'de' LLLL 'as' HH:mm'h'",
+    { locale: ptBR }
+  );
+
+  const publishedDateRelative = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    setComments([...comments, newCommentText]);
+    setNewCommentText("");
+  }
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value);
+  }
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar
-            src={boltProfile}
-          />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Bolt Nava</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="11 de agosto as 15:48" dateTime="2022-08-11 15:48:30">
-          Publicado a 1h
+        <time
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
+        >
+          {publishedDateRelative}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>Ontem bati meu record! Roubei 20 MEIAS</p>
-        <p>
-          {" "}
-          <a href="#">#PAS</a>
-        </p>
-        <p>
-          {" "}
-          <a href="#">#RAÇÃO PREMIUM</a>
-        </p>
+        {content.map((line) => {
+          if (line.type === "paragraph") {
+            return <p>{line.content}</p>;
+          } else if (line.type === "link") {
+            return (
+              <p>
+                <a href="">{line.content}</a>
+              </p>
+            );
+          }
+        })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea placeholder="Deixa um Comentário!" />
+        <textarea
+          name="comment"
+          placeholder="Deixa um Comentário!"
+          value={newCommentText}
+          onChange={handleNewCommentChange}
+        />
         <footer>
           <button type="submit">Publicar</button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
+        {comments.map((comment) => {
+          return <Comment content={comment} />;
+        })}
       </div>
     </article>
   );
